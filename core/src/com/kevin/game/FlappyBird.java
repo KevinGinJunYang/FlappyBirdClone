@@ -34,34 +34,34 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+		if (gameState != 0) {
 
+			if (Gdx.input.justTouched()) {
+				velocity = -30;
+			}
 
-		if(Gdx.input.justTouched()){
-			Gdx.app.log("Touched","Yep!");
-			gameState = 1;
-		}
-
-		if(gameState != 0) {
-			velocity += gravity;
-			birdY -= velocity;
-		}
-		else{
-			if(Gdx.input.justTouched()){
-				gameState = 1;
+			if (birdY > 0 || velocity < 0) {
+				velocity += gravity;
+				birdY -= velocity;
 			}
 		}
-		if (flapState == 0) {
-			flapState = 1;
-		} else {
-			flapState = 0;
+			else {
+				if (Gdx.input.justTouched()) {
+					gameState = 1;
+				}
+			}
+			if (flapState == 0) {
+				flapState = 1;
+			} else {
+				flapState = 0;
+			}
+
+			batch.begin();
+			batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
+			batch.end();
+
 		}
 
-		batch.begin();
-		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
-		batch.end();
-
-	}
-	
 
 }
