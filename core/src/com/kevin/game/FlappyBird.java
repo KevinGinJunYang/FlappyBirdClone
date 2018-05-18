@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -19,6 +20,9 @@ public class FlappyBird extends ApplicationAdapter {
 	int gameState = 0;
 	float gravity = 2;
 
+	Texture topTube;
+	Texture bottomTube;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -28,6 +32,9 @@ public class FlappyBird extends ApplicationAdapter {
 		birds[1] = new Texture("bird2.png");
 
 		birdY = Gdx.graphics.getHeight() /2 - birds[0].getHeight() /2;
+
+		topTube = new Texture("toptube.png");
+		bottomTube = new Texture("bottomTube.png");
 
 	}
 
