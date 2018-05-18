@@ -22,6 +22,7 @@ public class FlappyBird extends ApplicationAdapter {
 
 	Texture topTube;
 	Texture bottomTube;
+	float gap = 400;
 
 	@Override
 	public void create () {
@@ -41,7 +42,13 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+		batch.begin();
+		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 		if (gameState != 0) {
+
+			batch.draw(topTube, Gdx.graphics.getWidth()/2 - topTube.getWidth()/2, Gdx.graphics.getHeight()/2 + gap/2);
+			batch.draw(bottomTube, Gdx.graphics.getWidth()/2 - bottomTube.getWidth()/2, Gdx.graphics.getHeight()/2 - gap/2 - bottomTube.getHeight());
 
 			if (Gdx.input.justTouched()) {
 				velocity = -32;
@@ -63,8 +70,7 @@ public class FlappyBird extends ApplicationAdapter {
 				flapState = 0;
 			}
 
-			batch.begin();
-			batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 			batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
 			batch.end();
 
