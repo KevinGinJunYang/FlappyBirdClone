@@ -5,7 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
+import java.util.Random;
 
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -23,6 +26,9 @@ public class FlappyBird extends ApplicationAdapter {
 	Texture topTube;
 	Texture bottomTube;
 	float gap = 400;
+	float maximumTubeOffSet = Gdx.graphics.getHeight()/2 - gap/2 - 100;
+	Random randomGenerator;
+	float tubeOffSet;
 
 	@Override
 	public void create () {
@@ -36,6 +42,8 @@ public class FlappyBird extends ApplicationAdapter {
 
 		topTube = new Texture("toptube.png");
 		bottomTube = new Texture("bottomTube.png");
+		randomGenerator = new Random();
+
 
 	}
 
@@ -52,6 +60,9 @@ public class FlappyBird extends ApplicationAdapter {
 
 			if (Gdx.input.justTouched()) {
 				velocity = -32;
+
+				tubeOffSet = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
+
 			}
 
 			if (birdY > 0 || velocity < 0) {
