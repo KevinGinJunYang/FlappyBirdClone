@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.util.Random;
 
@@ -24,11 +22,14 @@ public class FlappyBird extends ApplicationAdapter {
 	float gravity = 2;
 
 	Texture topTube;
-	Texture bottomTube;
-	float gap = 400;
-	float maximumTubeOffSet = Gdx.graphics.getHeight()/2 - gap/2 - 100;
+	Texture	bottomTube;
 	Random randomGenerator;
 	float tubeOffSet;
+
+	float gap = 400;
+	float maximumTubeOffSet;
+	float tubeVelocity = 4;
+	float tubeX;
 
 	@Override
 	public void create () {
@@ -37,14 +38,13 @@ public class FlappyBird extends ApplicationAdapter {
 		birds = new Texture[2];
 		birds[0] = new Texture("bird.png");
 		birds[1] = new Texture("bird2.png");
-
 		birdY = Gdx.graphics.getHeight() /2 - birds[0].getHeight() /2;
 
 		topTube = new Texture("toptube.png");
-		bottomTube = new Texture("bottomTube.png");
+		bottomTube = new Texture("bottomtube.png");
+		maximumTubeOffSet = Gdx.graphics.getHeight()/2 - gap/2 - 100;
 		randomGenerator = new Random();
-
-
+		tubeX = Gdx.graphics.getWidth()/2 - topTube.getWidth()/2;
 	}
 
 	@Override
@@ -55,37 +55,40 @@ public class FlappyBird extends ApplicationAdapter {
 
 		if (gameState != 0) {
 
-			batch.draw(topTube, Gdx.graphics.getWidth()/2 - topTube.getWidth()/2, Gdx.graphics.getHeight()/2 + gap/2);
-			batch.draw(bottomTube, Gdx.graphics.getWidth()/2 - bottomTube.getWidth()/2, Gdx.graphics.getHeight()/2 - gap/2 - bottomTube.getHeight());
+
 
 			if (Gdx.input.justTouched()) {
 				velocity = -32;
 
-				tubeOffSet = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200); // movement of tube change 
-
+				tubeOffSet = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 100);
 			}
+
+			tubeX = tubeX -4;
+
+			batch.draw(topTube,tubeX, Gdx.graphics.getHeight()/2 + gap + tubeOffSet);
+			batch.draw(bottomTube, tubeX, Gdx.graphics.getHeight()/2 - gap/2 - bottomTube.getHeight()+ tubeOffSet);
 
 			if (birdY > 0 || velocity < 0) {
 				velocity += gravity;
 				birdY -= velocity;
 			}
 		}
-			else {
-				if (Gdx.input.justTouched()) {
-					gameState = 1;
-				}
+		else {
+			if (Gdx.input.justTouched()) {
+				gameState = 1;
 			}
-			if (flapState == 0) {
-				flapState = 1;
-			} else {
-				flapState = 0;
-			}
-
-
-			batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
-			batch.end();
-
 		}
+		if (flapState == 0) {
+			flapState = 1;
+		} else {
+			flapState = 0;
+		}
+
+
+		batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
+		batch.end();
+
+	}
 
 
 }
