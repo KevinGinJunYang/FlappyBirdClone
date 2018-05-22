@@ -63,7 +63,7 @@ public class FlappyBird extends ApplicationAdapter {
 				tubeOffSet = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 100);
 			}
 
-			tubeX = tubeX -4;
+			tubeX = tubeX -3;
 
 			batch.draw(topTube,tubeX, Gdx.graphics.getHeight()/2 + gap + tubeOffSet);
 			batch.draw(bottomTube, tubeX, Gdx.graphics.getHeight()/2 - gap/2 - bottomTube.getHeight()+ tubeOffSet);
