@@ -2,10 +2,13 @@ package com.kevin.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 
 import java.util.Random;
 
@@ -17,6 +20,10 @@ public class FlappyBird extends ApplicationAdapter {
     int flapState = 0;
     float birdY = 0;
     float velocity = 0;
+
+    Circle birdCircle = new Circle();
+    ShapeRenderer shapeRenderer = new ShapeRenderer();
+
 
     int gameState = 0;
     float gravity = 2;
@@ -31,6 +38,7 @@ public class FlappyBird extends ApplicationAdapter {
     float[] tubeX = new float[numberOfTubes];
     float[] tubeOffset = new float[numberOfTubes];
     float distanceBetweenTubes;
+
 
 
     @Override
@@ -121,8 +129,15 @@ public class FlappyBird extends ApplicationAdapter {
         }
 
 
+
         batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
         batch.end();
+
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+
+
 
     }
 }
