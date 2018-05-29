@@ -21,8 +21,8 @@ public class FlappyBird extends ApplicationAdapter {
     float birdY = 0;
     float velocity = 0;
 
-    Circle birdCircle = new Circle();
-    ShapeRenderer shapeRenderer = new ShapeRenderer();
+    Circle birdCircle;
+    ShapeRenderer shapeRenderer;
 
 
     int gameState = 0;
@@ -56,6 +56,10 @@ public class FlappyBird extends ApplicationAdapter {
         maxTubeOffset = Gdx.graphics.getHeight() / 2 - gap / 2 - 100;
         randomGenerator = new Random();
         distanceBetweenTubes = Gdx.graphics.getWidth() * 3 / 4;
+
+
+        shapeRenderer = new ShapeRenderer();
+        birdCircle = new Circle();
 
         for (int i = 0; i < numberOfTubes; i++) {
 
@@ -133,10 +137,11 @@ public class FlappyBird extends ApplicationAdapter {
         batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
         batch.end();
 
-
+        birdCircle.set(Gdx.graphics.getWidth()/2, birdY + birds[flapState].getHeight()/2, birds[flapState].getWidth()/2 );
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
-
+        shapeRenderer.circle(birdCircle.x,birdCircle.y,birdCircle.radius);
+        shapeRenderer.end();
 
 
     }
