@@ -176,9 +176,6 @@ public class FlappyBird extends ApplicationAdapter {
 
 
 
-        //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        //shapeRenderer.setColor(Color.RED);
-        //shapeRenderer.circle(birdCircle.x, birdCircle.y, birdCircle.radius);
 
         for (int i = 0; i < numberOfTubes; i++) {
 
