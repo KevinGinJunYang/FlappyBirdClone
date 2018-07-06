@@ -20,6 +20,9 @@ public class FlappyBird extends ApplicationAdapter {
     Texture background;
     //ShapeRenderer shapeRenderer;
 
+    Texture gameOver;
+
+
     Texture[] birds;
     int flapState = 0;
     float birdY = 0;
@@ -51,7 +54,8 @@ public class FlappyBird extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
         background = new Texture("bg.png");
-        //shapeRenderer = new ShapeRenderer();
+        //shapeRenderer = new ShapeRenderer();'
+        gameOver = new Texture("gameover.png");
         birdCircle = new Circle();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
