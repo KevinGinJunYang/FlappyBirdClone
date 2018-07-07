@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -97,7 +98,7 @@ public class FlappyBird extends ApplicationAdapter {
         batch.begin();
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        if (gameState != 0) {
+        if (gameState == 1) {
 
             if (tubeX[scoringTube] < Gdx.graphics.getWidth() / 2) {
 
@@ -147,14 +148,17 @@ public class FlappyBird extends ApplicationAdapter {
 
 
 
-            if (birdY > 0 || velocity < 0) {
+            if (birdY > 0) {
 
                 velocity = velocity + gravity;
                 birdY -= velocity;
 
+            } else{
+
+                gameState = 2;
             }
 
-        } else {
+        } else if(gameState == 0){
 
             if (Gdx.input.justTouched()) {
 
@@ -162,6 +166,8 @@ public class FlappyBird extends ApplicationAdapter {
 
             }
 
+        } else if(gameState == 2){
+            batch.draw(gameOver, Gdx.graphics.getWidth() / 2 - gameOver.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameOver.getHeight() / 2);
         }
 
         if (flapState == 0) {
@@ -183,7 +189,7 @@ public class FlappyBird extends ApplicationAdapter {
 
             if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i])) {
 
-                Gdx.app.log("Collision", "Yes!");
+                gameState = 2;
 
             }
 
